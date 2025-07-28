@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MyCourse | Profile</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .dashboard-container { display: flex; min-height: 100vh; }
+    .sidebar { width: 250px; background-color: #2c3e50; color: #ecf0f1; padding: 30px 20px; }
+    .sidebar h2 { font-size: 1.5rem; margin-bottom: 30px; border-bottom: 1px solid #34495e; padding-bottom: 10px; }
+    .sidebar nav a { display: block; color: #ecf0f1; margin-bottom: 15px; text-decoration: none; font-weight: bold; }
+    .sidebar nav a:hover { color: #3498db; }
+    .main-content { flex: 1; padding: 30px; background-color: #f5f5f5; }
+    .profile-card { background-color: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); max-width: 500px; margin: auto; }
+    .profile-card h2 { margin-top: 0; }
+    .profile-card label { display: block; margin-top: 15px; font-weight: bold; }
+    .profile-card input { width: 100%; padding: 10px; margin-top: 5px; border-radius: 5px; border: 1px solid #ccc; }
+    .profile-card button { margin-top: 20px; width: 100%; padding: 12px; background-color: #3498db; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+    @media (max-width: 768px) {
+      .dashboard-container { flex-direction: column; }
+      .sidebar { width: 100%; text-align: center; }
+      .main-content { padding: 15px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <h2>MyCourse</h2>
+      <nav>
+        <a href="dashboard.html">🏠 Dashboard</a>
+        <a href="#">📚 My Courses</a>
+        <a href="profile.html">👤 Profile</a>
+        <a href="#" onclick="logout()">🚪 Logout</a>
+      </nav>
+    </aside>
+    <div class="main-content">
+      <div class="profile-card">
+        <h2>Your Profile</h2>
+        <form id="profileForm">
+          <label for="profileName">Full Name</label>
+          <input type="text" id="profileName" required />
+          <label for="profileEmail">Email</label>
+          <input type="email" id="profileEmail" required disabled />
+          <button type="submit">Update Profile</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

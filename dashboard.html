@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MyCourse | Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .dashboard-container { display: flex; min-height: 100vh; }
+    .sidebar { width: 250px; background-color: #2c3e50; color: #ecf0f1; padding: 30px 20px; }
+    .sidebar h2 { font-size: 1.5rem; margin-bottom: 30px; border-bottom: 1px solid #34495e; padding-bottom: 10px; }
+    .sidebar nav a { display: block; color: #ecf0f1; margin-bottom: 15px; text-decoration: none; font-weight: bold; }
+    .sidebar nav a:hover { color: #3498db; }
+    .main-content { flex: 1; padding: 30px; background-color: #f5f5f5; }
+    .dashboard-header { display: flex; justify-content: space-between; align-items: center; background-color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .dashboard-header h1 { margin: 0; }
+    .info-cards { display: flex; gap: 20px; flex-wrap: wrap; }
+    .info-card { background-color: white; flex: 1; padding: 20px; min-width: 250px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    @media (max-width: 768px) {
+      .dashboard-container { flex-direction: column; }
+      .sidebar { width: 100%; text-align: center; }
+      .main-content { padding: 15px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <h2>MyCourse</h2>
+      <nav>
+        <a href="dashboard.html">🏠 Dashboard</a>
+        <a href="course.html">📚 My Courses</a>
+        <a href="profile.html">👤 Profile</a>
+        <a href="#" onclick="logout()" class="logout-mini" title="Logout">🚪</a>
+      </nav>
+    </aside>
+    <div class="main-content">
+      <div class="dashboard-header">
+        <h1>Welcome, <span id="userName">User</span></h1>
+        <button onclick="logout()">Logout</button>
+      </div>
+      <div class="info-cards">
+        <div class="info-card">
+          <h3>📧 Email</h3>
+          <p id="userEmail">Loading...</p>
+        </div>
+        <div class="info-card">
+          <h3>📅 Enrolled Course</h3>
+          <ul>
+            <li>HTML Basics</li>
+            <li>CSS Fundamentals</li>
+            <li>JavaScript Essentials</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
