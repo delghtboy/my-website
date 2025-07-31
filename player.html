@@ -2,88 +2,191 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Player Info Section</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Guild Members Info</title>
   <style>
+    /* ── Base Styles ───────────────────────────────────────────────────────── */
     body {
       margin: 0;
+      padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #0f172a;
       color: #fff;
     }
-    .container {
-      padding: 30px;
-    }
     .back-button {
-      background-color: #38bdf8;
-      color: #000;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-bottom: 20px;
-      transition: background 0.3s ease;
+      margin: 20px;
     }
-    .back-button:hover {
-      background-color: #0ea5e9;
+    .back-button a {
+      text-decoration: none;
+      background-color: #2563eb;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 5px;
+      font-weight: bold;
+      display: inline-block;
+      transition: background 0.2s;
     }
-    h1 {
+    .back-button a:hover {
+      background-color: #1e40af;
+    }
+    .title {
       text-align: center;
+      font-size: 28px;
+      font-weight: bold;
       color: #38bdf8;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
-    .players-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
+    .members-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 0 20px 40px;
     }
-    .player-card {
+    .member-card {
       background-color: #1e293b;
       padding: 20px;
       border-radius: 12px;
+      width: 300px;
       text-align: center;
       box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      transition: transform 0.3s;
+      cursor: pointer;
     }
-    .player-card img {
+    .member-card:hover {
+      transform: translateY(-5px);
+    }
+    .avatar {
       width: 100px;
       height: 100px;
       border-radius: 50%;
       object-fit: cover;
-      margin-bottom: 10px;
-      border: 2px solid #38bdf8;
+      border: 3px solid #38bdf8;
+      margin-bottom: 15px;
     }
-    .player-card h3 {
-      margin: 10px 0 5px;
+    .member-name {
+      font-size: 18px;
+      font-weight: bold;
       color: #facc15;
+      margin: 10px 0;
     }
-    .player-card p {
-      margin: 4px 0;
-      font-size: 0.95rem;
+    .member-info {
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .member-info strong {
+      color: #fff;
+    }
+
+    /* ── Modal Styles ──────────────────────────────────────────────────────── */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal-overlay img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.8);
+    }
+    .modal-overlay .close-btn {
+      position: absolute;
+      top: 20px; right: 30px;
+      font-size: 30px;
+      color: white;
+      cursor: pointer;
+      user-select: none;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <button class="back-button" onclick="window.location.href='dashboard.html'">← Back to Dashboard</button>
-    <h1>FLx Guild Members Info.</h1>
-    <div class="players-grid">
-      <div class="player-card">
-        <img src="https://cdn.discordapp.com/attachments/1398564037133991947/1399964392170193019/image0.jpg?ex=688ae9f1&is=68899871&hm=b18071d40589179b65df27f1d933f5f24bef17ffb7da40c196932071607cb19f&" alt="Player 1">
-        <h3>LUFFY BADMOSH (aka Badal)</h3>
-        <p><strong>Game Uid:</strong> 1821396019</p>
-        <p><strong>BR Rank:</strong> Diamons V</p>
-        <p><strong>Role:</strong> Rusher</p>
-        <p><strong>Discord Id:</strong> luffythegod._</p>
-      </div>
-      <div class="player-card">
-        <img src="https://cdn.discordapp.com/attachments/1126790191546372126/1399966904528932916/IMG_0543.jpg?ex=688aec48&is=68899ac8&hm=2ba7d2694f3653c484cef33c42e05b74670616a5dd16d6f547363934071357c0&" alt="Player 2">
-        <h3>Karan!!</h3>
-        <p><strong>Game Uid:</strong> 2012386252</p>
-        <p><strong>BR Rank:</strong> Heroic 2Star</p>
-        <p><strong>Role:</strong> Rusher</p>
-        <p><strong>Discord Id:</strong> karan_jii</p>
+
+  <div class="back-button">
+    <a href="dashboard.html">← Back to Dashboard</a>
+  </div>
+
+  <div class="title">FLx Guild Members Info.</div>
+
+  <div class="members-container">
+    
+    <div class="member-card" data-img="https://images-ext-1.discordapp.net/external/MqxPZRkrmz-LC1j-jNzEUyTyndDvqWtTZRz1e-l3cLI/?size=4096">
+      <img class="avatar" src="https://images-ext-1.discordapp.net/external/MqxPZRkrmz-LC1j-jNzEUyTyndDvqWtTZRz1e-l3cLI/%3Fsize%3D4096/https/cdn.discordapp.com/avatars/1345439563790942369/71a2b994505fe0c5f340b94f8ee1092f.png?format=webp&quality=lossless" alt="Avatar">
+      <div class="member-name">LUFFY BADMOSH (aka Badal)</div>
+      <div class="member-info">
+        <strong>Game Uid:</strong> 1821396019<br>
+        <strong>BR Rank:</strong> Diamons V<br>
+        <strong>Role:</strong> Rusher<br>
+        <strong>Discord Id:</strong> luffythegod._
       </div>
     </div>
+
+    <div class="member-card" data-img="https://images-ext-1.discordapp.net/external/Hd40gdlg6YK4as_gWoJSkfG0-lK8LoapZUJesvBYIGE/?size=4096">
+      <img class="avatar" src="https://images-ext-1.discordapp.net/external/Hd40gdlg6YK4as_gWoJSkfG0-lK8LoapZUJesvBYIGE/%3Fsize%3D4096/https/cdn.discordapp.com/avatars/1114043330381222018/ab5f5113f1d4f0982e79e14461136858.png?format=webp&quality=lossless" alt="Avatar">
+      <div class="member-name">Karan!!</div>
+      <div class="member-info">
+        <strong>Game Uid:</strong> 2012386252<br>
+        <strong>BR Rank:</strong> Heroic 2Star<br>
+        <strong>Role:</strong> Rusher<br>
+        <strong>Discord Id:</strong> karan_ji
+      </div>
+    </div>
+
+    <div class="member-card" data-img="https://images-ext-1.discordapp.net/external/Q6Df0lqVFekvOiZar8gHsrcNhMCV_e-TtMIjADn_KZM/?size=4096">
+      <img class="avatar" src="https://images-ext-1.discordapp.net/external/Q6Df0lqVFekvOiZar8gHsrcNhMCV_e-TtMIjADn_KZM/%3Fsize%3D4096/https/cdn.discordapp.com/avatars/1369766008042033322/228ae756754fd0df066c81c5e870c8f8.png?format=webp&quality=lossless" alt="Avatar">
+      <div class="member-name">BILLO BADMOSH (aka Guild owner)</div>
+      <div class="member-info">
+        <strong>Game Uid:</strong> 1821396019<br>
+        <strong>BR Rank:</strong> Diamons V<br>
+        <strong>Role:</strong> Rusher<br>
+        <strong>Discord Id:</strong> billo07x
+      </div>
+    </div>
+
+    <div class="member-card" data-img="https://media.discordapp.net/attachments/1389330959266222120/1400130715873706044/Free_Fire_Screenshot_Temp.png?ex=688c2d97&is=688adc17&hm=bb6aa19f6c2ccf2f0c2627dcd465a84abbff34fec0e451ad089e11aa86fa8470&=&format=webp&quality=lossless&width=550&height=254">
+      <img class="avatar" src="https://images-ext-1.discordapp.net/external/ABpN32tti0x_RYyaLbJuBDzb013DzGbIj6fykFawIj8/%3Fsize%3D4096/https/cdn.discordapp.com/avatars/1280042848787365936/eadd54cf7bd80a94af61e7e7591c1a76.png?format=webp&quality=lossless&width=924&height=924" alt="Avatar">
+      <div class="member-name">DARKY BADMOSH (aka Singer)</div>
+      <div class="member-info">
+        <strong>Game Uid:</strong> 1821396019<br>
+        <strong>BR Rank:</strong> Diamons V<br>
+        <strong>Role:</strong> Rusher<br>
+        <strong>Discord Id:</strong> darky888_6
+      </div>
+    </div>
+
   </div>
+
+  <!-- ── Modal Overlay ─────────────────────────────────────────────────────── -->
+  <div id="imageModal" class="modal-overlay">
+    <span class="close-btn" onclick="closeModal()">×</span>
+    <img id="modalImg" src="" alt="Full Size">
+  </div>
+
+  <script>
+    // Open modal on card click
+    document.querySelectorAll('.member-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const url = card.getAttribute('data-img');
+        document.getElementById('modalImg').src = url;
+        document.getElementById('imageModal').style.display = 'flex';
+      });
+    });
+
+    // Close modal
+    function closeModal() {
+      document.getElementById('imageModal').style.display = 'none';
+    }
+
+    // Close when clicking outside the image
+    document.getElementById('imageModal').addEventListener('click', e => {
+      if (e.target.id === 'imageModal') closeModal();
+    });
+  </script>
+
 </body>
 </html>
